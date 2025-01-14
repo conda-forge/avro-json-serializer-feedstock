@@ -6,21 +6,21 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/avro_json_serializer-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/avro_json_serializer-{{ version }}.tar.gz
   sha256: 7453a3239b9aa8277321c668b27e49895b4c532a6c2f7b2884e10cdda7b9d381
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
     - pip
-    - python >=3.6
+    - python {{ python_min }}
   run:
     - avro-python3 >=1.8.2,<2
-    - python >=3.6
+    - python >={{ python_min }}
     - six
 
 test:
@@ -30,6 +30,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/linkedin/python-avro-json-serializer
